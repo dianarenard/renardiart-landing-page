@@ -32,20 +32,20 @@ window.addEventListener('load', () => {
   el.classList.add("is-initialized");
 
   // Center the book dynamically:
-  // Front cover is drawn on the right half (400px wide). Shift left by 200px to center it.
-  // Back cover is drawn on the left half. Shift right by 200px to center it.
-  // Inner spreads take up the full 800px. Shift is 0px.
+  // Front cover is drawn on the right half. Shift left by 25% to center it.
+  // Back cover is drawn on the left half. Shift right by 25% to center it.
+  // Inner spreads take up the full wrapper. Shift is 0%.
   const wrap = document.querySelector('.flipbook-wrap');
-  wrap.style.transform = 'translateX(-200px)'; // start at front cover
+  wrap.style.transform = 'translateX(-25%)'; // start at front cover
 
   // Trigger the slide the instant the user starts interacting (drag or click)
   pageFlip.on('changeState', (e) => {
     if (e.data === 'user_fold' || e.data === 'flipping') {
       const currentPage = pageFlip.getCurrentPageIndex();
       if (currentPage === 0) {
-        wrap.style.transform = 'translateX(0)'; // opening front cover
+        wrap.style.transform = 'translateX(0%)'; // opening front cover
       } else if (currentPage >= 10) {
-        wrap.style.transform = 'translateX(0)'; // opening back cover backward
+        wrap.style.transform = 'translateX(0%)'; // opening back cover backward
       }
     }
   });
@@ -53,12 +53,12 @@ window.addEventListener('load', () => {
   // Final settle check when flip commits
   pageFlip.on('flip', (e) => {
     if (e.data === 0) {
-      wrap.style.transform = 'translateX(-200px)'; // Front cover
+      wrap.style.transform = 'translateX(-25%)'; // Front cover
     } else if (e.data >= 10) {
       // 12 pages total (0 to 11). The last page event might return 10 or 11.
-      wrap.style.transform = 'translateX(200px)';  // Back cover
+      wrap.style.transform = 'translateX(25%)';  // Back cover
     } else {
-      wrap.style.transform = 'translateX(0)';      // Inner spread
+      wrap.style.transform = 'translateX(0%)';      // Inner spread
     }
   });
 
